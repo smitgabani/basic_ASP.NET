@@ -1,0 +1,60 @@
+﻿@model IEnumerable<S2022A5SG.Models.AlbumBaseViewModel>
+
+@{
+    ViewBag.Title = "Album List";
+    var userAccount = new S2022A5SG.Controllers.RequestUser(User as System.Security.Claims.ClaimsPrincipal);
+}
+
+<h2>Album List</h2>
+
+<p>
+    @if (userAccount.HasRoleClaim("None"))
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrlAlbum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Coordinator)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </td>
+        <td>
+            <img src="@Html.DisplayFor(modelItem => item.UrlAlbum)" alt="@item.Name" width="200" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Coordinator)
+        </td>
+
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
